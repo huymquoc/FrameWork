@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
+
 
 
 namespace Repository
@@ -30,12 +30,11 @@ namespace Repository
                 _repositories = new Hashtable();
 
             var concreteType = typeof (T).Name;
-            if (!_repositories.ContainsKey(concreteType))
-            {
-                var atype = typeof (Repository<>);
-                var repoInstance = Activator.CreateInstance(atype.MakeGenericType(typeof (T)));
-                _repositories.Add(concreteType, repoInstance);
-            }
+            if (_repositories.ContainsKey(concreteType)) return _repositories[concreteType] as IRepository<T>;
+
+            var repoType = typeof (Repository<>);
+            var repoInstance = Activator.CreateInstance(repoType.MakeGenericType(typeof (T)), _dbContext);
+            _repositories.Add(concreteType, repoInstance);
 
             return _repositories[concreteType] as IRepository<T>;
         }
