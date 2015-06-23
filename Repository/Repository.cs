@@ -26,6 +26,8 @@ namespace Repository
             _dbSet = context.Set<TEntity>();
         }
 
+
+
         public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
         {
             IQueryable<TEntity> query = _dbSet;
@@ -45,6 +47,12 @@ namespace Repository
         public void Delete(TEntity entity)
         {
             throw new NotImplementedException();
+        }
+
+        public Repository<TEntity> Query()
+        {
+
+            return this;
         }
     }
 }
