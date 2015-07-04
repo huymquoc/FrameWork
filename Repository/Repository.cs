@@ -26,8 +26,6 @@ namespace Repository
             _dbSet = context.Set<TEntity>();
         }
 
-
-
         public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
         {
             IQueryable<TEntity> query = _dbSet;
