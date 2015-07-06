@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq.Expressions;
 
-namespace Repository
+namespace Framework.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
@@ -47,10 +46,9 @@ namespace Repository
             throw new NotImplementedException();
         }
 
-        public Repository<TEntity> Query()
+        public RepositoryQuery<TEntity> Query()
         {
-
-            return this;
+            return new RepositoryQuery<TEntity>(this);
         }
     }
 }

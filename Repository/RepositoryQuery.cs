@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository
+namespace Framework.Repository
 {
     public sealed class RepositoryQuery<T> where T: class
     {
@@ -26,6 +26,12 @@ namespace Repository
         }
 
         public RepositoryQuery<T> Include(IList<Expression<Func<T, object>>> navigationProperties)
+        {
+            _navigationProperties = navigationProperties;
+            return this;
+        }
+
+        public RepositoryQuery<T> Include(params Expression<Func<T, object>>[] navigationProperties)
         {
             _navigationProperties = navigationProperties;
             return this;

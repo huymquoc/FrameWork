@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository
+namespace Framework.Repository
 {
-    interface IUnitOfwork
+    public interface IUnitOfWork
     {
         IRepository<T> Repository<T>() where T : class;
         void Dispose();

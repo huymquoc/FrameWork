@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 
 
-namespace Repository
+namespace Framework.Repository
 {
-    public class UnitOfWork : IUnitOfwork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly IDbContext _dbContext;
         private Hashtable _repositories;
@@ -45,14 +45,16 @@ namespace Repository
             GC.SuppressFinalize(this);
         }
 
+        public void Dispose(bool disposing)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Save()
         {
             _dbContext.SaveChanges();
         }
 
-        public void Dispose(bool disposing)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
