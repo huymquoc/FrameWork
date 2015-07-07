@@ -12,6 +12,7 @@ namespace Framework.Repository
         void Update(TEntity entity);
         void Insert(TEntity entity);
         void Delete(TEntity entity);
+        IQueryable<TEntity> GetAll();
        // RepositoryQuery
     }
 }

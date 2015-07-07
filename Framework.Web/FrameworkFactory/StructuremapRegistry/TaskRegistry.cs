@@ -17,7 +17,6 @@ namespace Framework.Web.FrameworkFactory.StructuremapRegistry
             {
                 scanner.AddAllTypesOf<IRunAtInit>();
                 scanner.AddAllTypesOf<IRunOnEachRequest>();
-                
             });
         }
     }

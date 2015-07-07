@@ -31,6 +31,12 @@ namespace Framework.Repository
             return query.Where(predicate);
         }
 
+        public IQueryable<TEntity> GetAll()
+        {
+            return _dbSet;
+        }
+
+
         public void Update(TEntity entity)
         {
             throw new NotImplementedException();

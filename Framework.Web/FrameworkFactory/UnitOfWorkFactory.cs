@@ -12,26 +12,12 @@ using Framework.Web.FrameworkFactory.Task;
 
 namespace Framework.Web
 {
-    public class UnitOfWorkFactory 
+    public static class UnitOfWorkFactory 
     {
-        public IUnitOfWork Get()
+        public static IUnitOfWork Get()
         {
             return IoC.Container.GetInstance<IUnitOfWork>();
         }
     }
 
-    public class UnitOfWorkPerRequest : IRunOnEachRequest
-    {
-        private readonly IDbContext _dbContext;
-
-        public UnitOfWorkPerRequest(IDbContext context)
-        {
-            
-        }
-
-        public void Execute()
-        { 
-        
-        }
-    }
 }

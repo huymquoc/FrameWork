@@ -8,11 +8,11 @@ using System.Data.Entity.Infrastructure;
 
 namespace Framework.Repository
 {
-    public interface IDbContext
+    public interface IDbContext : IDisposable
     {
-        IDbSet<T> Set<T>() where T : class;
         int SaveChanges();
-        DbEntityEntry Entry(object o);
-        void Dispose();
+        IDbSet<T> Set<T>() where T : class;
+        //DbEntityEntry Entry(object o);
+        //void Dispose();
     }
 }

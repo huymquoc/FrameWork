@@ -11,6 +11,12 @@ using Framework.Web.FrameworkFactory.StructuremapRegistry;
 using StructureMap.Graph;
 using Framework.Web.FrameworkFactory.Task;
 using System.Data.Entity;
+using Framework.Repository;
+using Framework.Web.Domain;
+using Framework.Web.Service;
+using StructureMap.Graph;
+using StructureMap.Pipeline;
+using StructureMap.TypeRules;
 
 namespace Framework.Web
 {
@@ -35,7 +41,7 @@ namespace Framework.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion())
+            //Database.SetInitializer<ApplicationDataContext>(new CreateDatabaseIfNotExists<ApplicationDataContext>());
 
             DependencyResolver.SetResolver(new StructuremapDependencyResolver(() => Container ?? IoC.Container));
             IoC.Container.Configure(config =>
@@ -43,9 +49,12 @@ namespace Framework.Web
                // config.Scan(scan => { scan.WithDefaultConventions(); scan.TheCallingAssembly(); });
                 config.AddRegistry(new BasicRegistry());
                 config.AddRegistry(new ControllerRegistry());
+                config.For<IDbContext>().LifecycleIs(new UniquePerRequestLifecycle()).Use<DataContext>();
+                config.For<IUnitOfWork>().Use<UnitOfWork>();
+                config.For<IEmployeeService>().Use<EmployeeService>();
             });
 
-            using (var container = Container.GetNestedContainer())
+            using (var container = IoC.Container.GetNestedContainer())
             {
                 var tasks = container.GetAllInstances<IRunAtInit>();
 
@@ -58,15 +67,15 @@ namespace Framework.Web
 
         public void Application_BeginRequest()
         {
-            using (var container = Container.GetNestedContainer())
-            {
-                var tasks = container.GetAllInstances<IRunOnEachRequest>();
+            Container = IoC.Container.GetNestedContainer();
 
-                foreach (var task in tasks)
-                {
-                    task.Execute();
-                }
+            var tasks = Container.GetAllInstances<IRunOnEachRequest>();
+
+            foreach (var task in tasks)
+            {
+                task.Execute();
             }
+            
         }
     }
 }

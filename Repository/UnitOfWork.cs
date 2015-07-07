@@ -41,13 +41,7 @@ namespace Framework.Repository
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public void Dispose(bool disposing)
-        {
-            throw new NotImplementedException();
+            
         }
 
         public void Save()
