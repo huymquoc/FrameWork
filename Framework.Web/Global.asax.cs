@@ -43,8 +43,6 @@ namespace Framework.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Database.SetInitializer<ApplicationDataContext>(new CreateDatabaseIfNotExists<ApplicationDataContext>());
-
             DependencyResolver.SetResolver(new StructuremapDependencyResolver(() => Container ?? IoC.Container));
             IoC.Container.Configure(config =>
             {

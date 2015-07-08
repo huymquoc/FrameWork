@@ -21,7 +21,6 @@ namespace Framework.Web.Service
             {
                 var employeeRepo = unitOfWork.Repository<Student>();
                 //TODO:
-                // employeeRepo.FindById("1");
             }
         }
     }
