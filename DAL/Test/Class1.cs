@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Framework.Web.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -14,7 +16,11 @@ namespace Test
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.Equals(0, 0);
+            var dbSet = new Mock<DbSet<Student>>();
+            var context = new Mock<SchoolContext>();
+            context.Setup(s => s.Set<Student>()).Returns(dbSet.Object);
+            var student = context.Object.Set<Student>().Find(1);
+            Assert.Equals(student.PersonID, 1);
         }
 
 
