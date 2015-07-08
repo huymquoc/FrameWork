@@ -7,7 +7,7 @@ using Framework.Web.Domain;
 
 namespace Framework.Web.Service
 {
-    public interface IEmployeeService : IService<Employee>
+    public interface IEmployeeService : IService<Student>
     {
         void DoSomething();
 
@@ -19,7 +19,7 @@ namespace Framework.Web.Service
         {
             using (var unitOfWork = UnitOfWorkFactory.Get())
             {
-                var employeeRepo = unitOfWork.Repository<Employee>();
+                var employeeRepo = unitOfWork.Repository<Student>();
                 //TODO:
                 // employeeRepo.FindById("1");
             }

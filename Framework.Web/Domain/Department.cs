@@ -1,16 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Framework.Web.Domain
 {
-    public class Department
-    {
-        public string DepartmentId { get; set; }
-        public string Name { get; set; }
+   public class Department
+   {
+      public int DepartmentID { get; set; }
 
-        public virtual ICollection<Employee> Employees { get; set; }
+      [StringLength(50, MinimumLength = 3)]
+      public string Name { get; set; }
 
-    }
+      [DataType(DataType.Currency)]
+      [Column(TypeName = "money")]
+      public decimal Budget { get; set; }
+
+      [DataType(DataType.Date)]
+      public DateTime StartDate { get; set; }
+
+      [Display(Name = "Administrator")]
+      public int? PersonID { get; set; }
+
+      [Timestamp]
+      public byte[] RowVersion { get; set; }
+
+      public virtual Instructor Administrator { get; set; }
+      public virtual ICollection<Course> Courses { get; set; }
+   }
 }
