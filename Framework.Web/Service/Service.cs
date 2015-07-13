@@ -7,19 +7,20 @@ using Framework.Web.Domain;
 
 namespace Framework.Web.Service
 {
-    public interface IEmployeeService : IService<Student>
+    public interface ILibraryService : IService<Student>
     {
         void DoSomething();
 
     }
 
-    public class EmployeeService : IEmployeeService
+    public class LibraryService : ILibraryService
     {
         public void DoSomething()
         {
             using (var unitOfWork = UnitOfWorkFactory.Get())
             {
-                var employeeRepo = unitOfWork.Repository<Student>();
+                var tmp = unitOfWork.Repository<Student>();
+
                 //TODO:
             }
         }

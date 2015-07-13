@@ -8,7 +8,6 @@ namespace Framework.Web.Domain
     {
       public int CategoryID { get; set; }
 
-      [StringLength(50, MinimumLength = 3)]
       public string Title { get; set; }
 
       [Display(Name = "Book")]

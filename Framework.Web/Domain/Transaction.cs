@@ -10,10 +10,10 @@ namespace Framework.Web.Domain
     {
       public int TransactionID { get; set; }
 
-      [DisplayName("BookID")]
+      [DisplayName("Book")]
       public string BookID { get; set; }
 
-      [DisplayName("BorrowerID")]
+      [DisplayName("Borrower")]
       public string BorrowerID { get; set; }
 
       public DateTime TransactionDate { get; set; }

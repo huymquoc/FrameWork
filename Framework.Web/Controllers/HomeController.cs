@@ -9,9 +9,9 @@ namespace Framework.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IEmployeeService _service;
+        private ILibraryService _service;
 
-        public HomeController(IEmployeeService service)
+        public HomeController(ILibraryService service)
         {
             _service = service;
         }

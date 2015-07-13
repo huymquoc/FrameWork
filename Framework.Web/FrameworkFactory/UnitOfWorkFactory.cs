@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Framework.Repository;
+﻿using Framework.Repository;
 using Framework.Web.FrameworkFactory;
-using StructureMap;
-using StructureMap.Graph;
-using Framework.Web.FrameworkFactory.Task;
-
 
 namespace Framework.Web
 {

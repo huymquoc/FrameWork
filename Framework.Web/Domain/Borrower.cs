@@ -6,9 +6,11 @@ namespace Framework.Web.Domain
 {
    public class Borrower : Person
     { 
-        public virtual ICollection<Transaction> Transactions { get; set; }
 
         [StringLength(100)]
         public string Address { get; set; }
+
+        public virtual ICollection<Transaction> Transactions { get; set; }
+
     }
 }

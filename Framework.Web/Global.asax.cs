@@ -51,7 +51,7 @@ namespace Framework.Web
                 config.AddRegistry(new ControllerRegistry());
                 config.For<IDbContext>().LifecycleIs(new UniquePerRequestLifecycle()).Use<DataContext>();
                 config.For<IUnitOfWork>().Use<UnitOfWork>();
-                config.For<IEmployeeService>().Use<EmployeeService>();
+                config.For<ILibraryService>().Use<LibraryService>();
             });
 
             using (var container = IoC.Container.GetNestedContainer())

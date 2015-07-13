@@ -75,10 +75,6 @@
       <Project>{d2f11d0f-6cc0-45a9-8096-2d1affe2dfc7}</Project>
       <Name>Repository</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data.csproj">
-      <Project>{00abca6e-be41-4bd2-8874-7739d052a1f2}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
