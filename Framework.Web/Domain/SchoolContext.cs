@@ -31,7 +31,7 @@ namespace Framework.Web.Domain
                  .ToTable("CourseInstructor"));
       }
 
-       public new IDbSet<T> Set<T>() where T : class
+       public virtual new IDbSet<T> Set<T>() where T : class
        {
            return base.Set<T>();
        }
