@@ -39,7 +39,7 @@ namespace Test
         //}
 
         [TestMethod]
-        public void Repository_Insert_And_Save_ShouldBe_Called()
+        public void Repository_Insert_ShouldBe_Called()
         {
             var dbSet = new Mock<DbSet<Book>>();
             var context = new Mock<LibraryContext>();
@@ -48,6 +48,7 @@ namespace Test
 
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(u => u.Repository<Book>()).Returns(repoMock.Object);
+            repoMock.Setup(r => r.Insert(It.IsAny<Book>()));
 
             var bookService = new BookService(mockUnitOfWork.Object);
 
@@ -61,6 +62,25 @@ namespace Test
             });
 
             repoMock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void UnitOfWork_Save_ShouldBe_Called()
+        {
+            var dbSet = new Mock<DbSet<Book>>();
+            var context = new Mock<LibraryContext>();
+            context.Setup(s => s.Set<Book>()).Returns(dbSet.Object);
+            var repoMock = new Mock<IRepository<Book>>();
+
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Repository<Book>()).Returns(repoMock.Object);
+            mockUnitOfWork.Setup(u => u.Save());
+
+            var bookService = new BookService(mockUnitOfWork.Object);
+
+            bookService.InsertBook(new Book());
+
+            mockUnitOfWork.VerifyAll();
         }
 
         [TestMethod]
@@ -78,6 +98,26 @@ namespace Test
             var bookService = new BookService(mockUnitOfWork.Object);
 
             bookService.InsertBook(null);
+
+        }
+
+        [TestMethod]
+        public void Notification_ShouldBe_Send_When_Added_New_Book()
+        {
+            var dbSet = new Mock<DbSet<Book>>();
+            var context = new Mock<LibraryContext>();
+            context.Setup(s => s.Set<Book>()).Returns(dbSet.Object);
+            var repoMock = new Mock<IRepository<Book>>();
+
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Repository<Book>()).Returns(repoMock.Object);
+          //  var bookService = new BookService(mockUnitOfWork.Object);
+
+            var service = new Mock<BookService>(mockUnitOfWork.Object);
+            service.Setup(s => s.NotifiNewBooks(It.IsAny<Book>()));
+
+           // service.Object.InsertBook(new Book());
+            service.Verify();
 
         }
 

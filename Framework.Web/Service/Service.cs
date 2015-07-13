@@ -4,12 +4,17 @@ using System.Linq;
 using System.Web;
 using Framework.Repository;
 using Framework.Web.Domain;
+using Framework.Web.Hubs;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
+
 
 namespace Framework.Web.Service
 {
     public class BookService : BaseService<Book>
     {
         private readonly IUnitOfWork _unitOfWork;
+
 
         public BookService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -36,6 +41,15 @@ namespace Framework.Web.Service
             newBook.ReceivedDate = DateTime.Now;
             Repository.Insert(newBook);
             _unitOfWork.Save();
+
+            NotifiNewBooks(newBook);
+        }
+
+        private IHubConnectionContext<dynamic> Clients => GlobalHost.ConnectionManager.GetHubContext<NotificationHub>().Clients;
+
+        public virtual void NotifiNewBooks(Book books)
+        {
+            Clients.All.NotifiNewBooks(books);
         }
 
 
