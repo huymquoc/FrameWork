@@ -16,7 +16,7 @@ namespace Framework.Repository
 
         public TEntity FindById(object id)
         {
-            throw new NotImplementedException();
+            return _dbSet.Find(id);
         }
 
         public Repository(IDbContext context)
@@ -44,7 +44,7 @@ namespace Framework.Repository
 
         public void Insert(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Add(entity);
         }
 
         public void Delete(TEntity entity)
@@ -55,6 +55,11 @@ namespace Framework.Repository
         public RepositoryQuery<TEntity> Query()
         {
             return new RepositoryQuery<TEntity>(this);
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -9,16 +9,16 @@ namespace Framework.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private ILibraryService _service;
+        private IService _baseService;
 
-        public HomeController(ILibraryService service)
+        public HomeController(IService baseService)
         {
-            _service = service;
+            _baseService = baseService;
         }
 
         public ActionResult Index()
         {
-            _service.DoSomething();
+           // _baseService.DoSomething();
             return View();
         }
 

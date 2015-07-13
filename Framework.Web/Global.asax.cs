@@ -49,9 +49,9 @@ namespace Framework.Web
                // config.Scan(scan => { scan.WithDefaultConventions(); scan.TheCallingAssembly(); });
                 config.AddRegistry(new BasicRegistry());
                 config.AddRegistry(new ControllerRegistry());
-                config.For<IDbContext>().LifecycleIs(new UniquePerRequestLifecycle()).Use<DataContext>();
+                config.For<IDbContext>().LifecycleIs(new UniquePerRequestLifecycle()).Use<LibraryContext>();
                 config.For<IUnitOfWork>().Use<UnitOfWork>();
-                config.For<ILibraryService>().Use<LibraryService>();
+               // config.For<IBookBaseService>().Use<BookBaseService>();
             });
 
             using (var container = IoC.Container.GetNestedContainer())

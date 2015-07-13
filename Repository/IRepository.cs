@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Framework.Repository
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> : IDisposable where TEntity : class
     {
         TEntity FindById(object id);
         void Update(TEntity entity);

@@ -18,6 +18,10 @@ namespace Framework.Web.Domain
       [Range(0, 5)]
       public int Rating { get; set; }
 
+      public int Amount { get; set; }
+
+      public DateTime ReceivedDate { get; set; }  
+
       public virtual ICollection<Category> Categories { get; set; }
       public virtual ICollection<Transaction> Transactions { get; set; }
     }

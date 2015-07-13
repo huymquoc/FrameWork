@@ -7,22 +7,37 @@ using Framework.Web.Domain;
 
 namespace Framework.Web.Service
 {
-    public interface ILibraryService : IService<Student>
+    public class BookService : BaseService<Book>
     {
-        void DoSomething();
+        private readonly IUnitOfWork _unitOfWork;
 
-    }
+        public BookService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
-    public class LibraryService : ILibraryService
-    {
+        //Dummy code, will be remove
         public void DoSomething()
         {
             using (var unitOfWork = UnitOfWorkFactory.Get())
             {
-                var tmp = unitOfWork.Repository<Student>();
+                var tmp = unitOfWork.Repository<Book>();
 
                 //TODO:
             }
         }
+
+        public void InsertBook(Book newBook)
+        {
+            if (newBook == null)
+            {
+                throw new ArgumentNullException("This method requires a not null book instance");
+            }
+            newBook.ReceivedDate = DateTime.Now;
+            Repository.Insert(newBook);
+            _unitOfWork.Save();
+        }
+
+
     }
 }
