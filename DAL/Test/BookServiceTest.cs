@@ -15,11 +15,7 @@ namespace Test
     [TestClass]
     public class BookServiceTest
     {
-        private static Book _book
-        {
-            get
-            {
-                return new Book
+        private static Book _book = new Book
                 {
                     Categories = new List<Category>(),
                     Title = "Book 1",
@@ -27,8 +23,9 @@ namespace Test
                     Rating = 3,
                     Amount = 3
                 };
-            }
-        }
+
+        private static readonly Mock<DbSet<Book>> DbSet = new Mock<DbSet<Book>>();
+
 
         [TestInitialize]
         public void Init()
@@ -43,9 +40,9 @@ namespace Test
         [TestMethod]
         public void Repository_Insert_ShouldBe_Called()
         {
-            var dbSet = new Mock<DbSet<Book>>();
+         
             var context = new Mock<LibraryContext>();
-            context.Setup(s => s.Set<Book>()).Returns(dbSet.Object);
+            context.Setup(s => s.Set<Book>()).Returns(DbSet.Object);
             var repoMock = new Mock<IRepository<Book>>();
 
             var mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -61,12 +58,13 @@ namespace Test
 
 
 
+
         [TestMethod]
         public void UnitOfWork_Save_ShouldBe_Called()
         {
-            var dbSet = new Mock<DbSet<Book>>();
+          //  var dbSet = new Mock<DbSet<Book>>();
             var context = new Mock<LibraryContext>();
-            context.Setup(s => s.Set<Book>()).Returns(dbSet.Object);
+            context.Setup(s => s.Set<Book>()).Returns(DbSet.Object);
             var repoMock = new Mock<IRepository<Book>>();
 
             var mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -86,9 +84,9 @@ namespace Test
 
             var book = new Book();
 
-            var dbSet = new Mock<DbSet<Book>>();
+            //var dbSet = new Mock<DbSet<Book>>();
             var context = new Mock<LibraryContext>();
-            context.Setup(s => s.Set<Book>()).Returns(dbSet.Object);
+            context.Setup(s => s.Set<Book>()).Returns(DbSet.Object);
             var repoMock = new Mock<IRepository<Book>>();
 
             var mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -106,9 +104,9 @@ namespace Test
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullException_ShouldBe_Throw_When_Passing_NullArgument()
         {
-            var dbSet = new Mock<DbSet<Book>>();
+            //var dbSet = new Mock<DbSet<Book>>();
             var context = new Mock<LibraryContext>();
-            context.Setup(s => s.Set<Book>()).Returns(dbSet.Object);
+            context.Setup(s => s.Set<Book>()).Returns(DbSet.Object);
             var repoMock = new Mock<IRepository<Book>>();
 
             var mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -123,9 +121,9 @@ namespace Test
         [TestMethod]
         public void Notification_ShouldBe_Send_When_Added_New_Book()
         {
-            var dbSet = new Mock<DbSet<Book>>();
+            //var dbSet = new Mock<DbSet<Book>>();
             var context = new Mock<LibraryContext>();
-            context.Setup(s => s.Set<Book>()).Returns(dbSet.Object);
+            context.Setup(s => s.Set<Book>()).Returns(DbSet.Object);
             var repoMock = new Mock<IRepository<Book>>();
 
             var mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -143,9 +141,9 @@ namespace Test
         [TestMethod]
         public void ReceivedDate_ShouldBe_Set_When_Insert_A_Book()
         {
-            var dbSet = new Mock<DbSet<Book>>();
+            //var dbSet = new Mock<DbSet<Book>>();
             var context = new Mock<LibraryContext>();
-            context.Setup(s => s.Set<Book>()).Returns(dbSet.Object);
+            context.Setup(s => s.Set<Book>()).Returns(DbSet.Object);
             var repoMock = new Mock<IRepository<Book>>();
            // repoMock.Setup(r => r.Insert(It.IsAny<Book>()));
 
