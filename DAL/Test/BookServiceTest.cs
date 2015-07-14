@@ -15,6 +15,21 @@ namespace Test
     [TestClass]
     public class BookServiceTest
     {
+        private static Book _book
+        {
+            get
+            {
+                return new Book
+                {
+                    Categories = new List<Category>(),
+                    Title = "Book 1",
+                    Author = "AAA",
+                    Rating = 3,
+                    Amount = 3
+                };
+            }
+        }
+
         [TestInitialize]
         public void Init()
         {
@@ -24,19 +39,6 @@ namespace Test
                 cfg.For<IUnitOfWork>().Use<UnitOfWork>();
             });
         }
-
-        //[TestMethod]
-        //public void TestMethod1()
-        //{
-        //    var dbSet = new Mock<DbSet<Book>>();
-        //    var context = new Mock<LibraryContext>();
-        //    context.Setup(s => s.Set<Book>()).Returns(dbSet.Object);
-        //    var repo = new Repository<Book>(context.Object);
-
-        //    var student = context.Object.Set<Book>().Find(1);
-        //    var a = repo.FindById(1);
-        //    Assert.Equals(student.BookID, 1);
-        //}
 
         [TestMethod]
         public void Repository_Insert_ShouldBe_Called()
@@ -52,17 +54,12 @@ namespace Test
 
             var bookService = new BookService(mockUnitOfWork.Object);
 
-            bookService.InsertBook(new Book
-            {
-                Categories = new List<Category>(),
-                Title = "Book 1",
-                Author = "AAA",
-                Rating = 3,
-                Amount = 3
-            });
+            bookService.InsertBook(_book);
 
             repoMock.VerifyAll();
         }
+
+
 
         [TestMethod]
         public void UnitOfWork_Save_ShouldBe_Called()
@@ -81,6 +78,28 @@ namespace Test
             bookService.InsertBook(new Book());
 
             mockUnitOfWork.VerifyAll();
+        }
+
+        [TestMethod]
+        public void Repository_Insert_ShouldBe_Called_With_Right_Argument()
+        {
+
+            var book = new Book();
+
+            var dbSet = new Mock<DbSet<Book>>();
+            var context = new Mock<LibraryContext>();
+            context.Setup(s => s.Set<Book>()).Returns(dbSet.Object);
+            var repoMock = new Mock<IRepository<Book>>();
+
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Repository<Book>()).Returns(repoMock.Object);
+            repoMock.Setup(r => r.Insert(It.IsAny<Book>())).Callback<Book>( b => { book = b; });
+
+            var bookService = new BookService(mockUnitOfWork.Object);
+
+            bookService.InsertBook(_book);
+
+            Assert.AreEqual(_book.Title, book.Title);
         }
 
         [TestMethod]

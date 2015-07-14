@@ -181,6 +181,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Domain\LibraryContext.cs" />
+    <Compile Include="Domain\Copy.cs" />
     <Compile Include="Domain\Transaction.cs" />
     <Compile Include="Domain\Borrower.cs" />
     <Compile Include="Domain\Book.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\BaseService.cs" />
+    <Compile Include="Service\AlertService.cs" />
     <Compile Include="Service\Service.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

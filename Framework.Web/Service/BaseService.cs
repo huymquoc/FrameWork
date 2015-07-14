@@ -22,7 +22,10 @@ namespace Framework.Web.Service
             _repository = unitOfWork.Repository<T>();
         }
 
-        protected IRepository<T> Repository => _repository;
+        protected IRepository<T> Repository {
+            get { return _repository; }
+        }
+        
 
         public void Dispose()
         {
